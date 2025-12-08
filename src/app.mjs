@@ -25,6 +25,9 @@ app.use(
 );
 
 // Route
+app.get("/", (req, res) => {
+  res.send("Internship Attendance System Backend is running.");
+});
 app.use("/api", routes);
 
 export default app;

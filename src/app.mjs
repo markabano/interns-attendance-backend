@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import routes from "./routes/index.routes.mjs";
-import connectDB from "./configs/db.configs.mjs";
+import routes from "./routes/index.route.mjs";
+import connectDB from "./configs/db.config.mjs";
 
 dotenv.config();
 
@@ -23,7 +23,6 @@ app.use(
     credentials: true,
   })
 );
-
 
 // Route
 app.use("/api", routes);

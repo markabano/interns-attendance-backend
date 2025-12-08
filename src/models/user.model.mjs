@@ -1,50 +1,29 @@
 import mongoose from "mongoose";
 
-const userModel = new mongoose.Schema(
+const ScheduleSchema = new mongoose.Schema({
+  timeIn: { type: String, required: true }, // "08:00"
+  timeOut: { type: String, required: true }, // "17:00"
+  breakStart: { type: String, default: "12:00" },
+  breakEnd: { type: String, default: "13:00" },
+});
+
+const userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
 
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-    },
+    // For Interns
+    department: { type: String, required: false },
+    requiredHours: { type: Number, required: false },
+    hoursCompleted: { type: Number, required: false, default: 0 },
+    schedule: { type: ScheduleSchema, required: false },
+    mustChangePassword: { type: Boolean, default: true },
 
-    password: {
-      type: String,
-      required: true,
-    },
-
-    role: {
-      type: String,
-      enum: ["admin", "intern"],
-      default: "intern",
-    },
-
-    department: {
-      type: String,
-      default: "",
-    },
-
-    status: {
-      type: String,
-      enum: ["active", "inactive"],
-      default: "active",
-    },
-
-    targetHours: {
-      type: Number,
-      default: 0,
-    },
+    role: { type: String, enum: ["admin", "intern"], default: "intern" },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-export default mongoose.model("User", userModel);
+export default mongoose.model("User", userSchema);

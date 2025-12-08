@@ -1,45 +1,42 @@
 import mongoose from "mongoose";
 
-const attendanceModel = new mongoose.Schema(
+const attendanceSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
+    date: { type: Date, required: true },
+    timeIn: { type: String, required: true },
+    timeOut: { type: String },
 
-    date: {
-      type: String, // e.g. "2025-12-05"
+    // Time calculations
+    renderedHours: { type: Number },
+    workedHours: { type: Number },
+    overtimeHours: { type: Number, default: 0 },
+    undertimeHours: { type: Number, default: 0 },
+
+    holidayType: {
+      type: String,
+      enum: ["regular", "special", null],
+      default: null,
+    },
+
+    // Who created this record?
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+
+    // How/Why was this created?
+    source: {
+      type: String,
+      enum: ["intern", "admin"],
       required: true,
     },
-
-    timeIn: {
-      type: Date,
-    },
-
-    timeOut: {
-      type: Date,
-    },
-
-    method: {
-      type: String,
-      enum: ["web", "qr", "manual", "gps"],
-      default: "web",
-    },
-
-    location: {
-      lat: Number,
-      lng: Number,
-    },
-
-    remarks: {
-      type: String,
-      default: "",
-    },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-export default mongoose.model("Attendance", attendanceModel);
+export default mongoose.model("Attendance", attendanceSchema);

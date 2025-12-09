@@ -51,6 +51,21 @@ export const createIntern = async (req, res) => {
   }
 };
 
+export const updateIntern = async (req, res) => {
+  try {
+    const { internId } = req.params;
+    const updateData = req.body;
+    const updatedIntern = await User.findByIdAndUpdate(internId, updateData, {
+      new: true,
+    });
+    res
+      .status(200)
+      .json({ message: "Intern updated successfully", intern: updatedIntern });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 export const deleteIntern = async (req, res) => {
   try {
     const { internId } = req.params;

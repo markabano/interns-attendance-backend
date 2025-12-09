@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
     requiredHours: { type: Number, required: false },
     hoursCompleted: { type: Number, required: false, default: 0 },
     schedule: { type: ScheduleSchema, required: false },
+    initialPassword: { type: String, required: false },
     mustChangePassword: { type: Boolean, default: true },
 
     role: { type: String, enum: ["admin", "intern"], default: "intern" },

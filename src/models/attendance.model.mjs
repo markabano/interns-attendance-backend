@@ -19,8 +19,8 @@ const attendanceSchema = new mongoose.Schema(
 
     holidayType: {
       type: String,
-      enum: ["regular", "special", null],
-      default: null,
+      enum: ["regular", "special", ""],
+      default: "",
     },
 
     // Who created this record?
@@ -30,11 +30,11 @@ const attendanceSchema = new mongoose.Schema(
     },
 
     // How/Why was this created?
-    source: {
-      type: String,
-      enum: ["intern", "admin"],
-      required: true,
-    },
+    // source: {
+    //   type: String,
+    //   enum: ["intern", "admin"],
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );
